@@ -12,10 +12,11 @@ final class ClockViewModel : ObservableObject {
     @Published var minutes = "00"
     @Published var seconds = "00"
     
-    private var clock : TimeProvider = Clock()
+    var clock : TimeProvider
     private var cancellabes = Set<AnyCancellable>()
     
-    init(){
+    init(clock: TimeProvider){
+        self.clock = clock
         Timer.publish(every: 1, on: .main, in: .common).autoconnect()
             .sink { _ in
                 let time = self.clock.Update()
